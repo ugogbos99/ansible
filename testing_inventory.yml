@@ -1,0 +1,47 @@
+---
+all:                                                    # implicit group which contains all hosts in the inventory
+ hosts:                                                 # belongs to the "all" group which is implicit
+  # AD_server:                                          # this is a host entry (no additional information is provided for this host entry, so Ansible will use default connection settings when connecting to this host)
+  # Clearpass_Server:                                   # this is a host entry (no additional information is provided for this host entry, so Ansible will use default connection settings when connecting to this host)  
+ children:                                              # groups within the "all" group
+  south_wing:                                           # Group
+   hosts:                                               # belongs to "south_wing" group
+    sw_core_1:                                          # Host
+     ansible_host: "{{ switch }}"                       # IP address of the target device to which Ansible will connect to execute tasks specified in the playbook
+     ansible_user: admin                                # username used by Ansible to authenticate and connect to the target device specified in the playbook
+     ansible_password: Aruba123!                        # password used by Ansible to authenticate and connect to the target device specified in the playbook
+     ansible_connection: httpapi                        # connection plugin used by Ansible to connect to the target device specified in the playbook. httpapi is used for network devices that support REST APIs
+     ansible_network_os: arubanetworks.aoscx.aoscx      # network operating system running on the target device specified in the playbook. this is used by Ansible to determine which modules and commands to use when executing tasks on the target device
+     ansible_httpapi_use_ssl: True                      # specifies whether to use SSL/TLS when connecting to the target device specified in the playbook using the httpapi connection plugin. setting this to True ensures that the connection is encrypted and secure
+     ansible_acx_no_proxy: True                         # specifies whether to bypass the proxy server when connecting to the target device specified in the playbook using the httpapi connection plugin. setting this to True ensures that Ansible connects directly to the target device without going through a proxy server, which can be useful in certain network configurations
+     ansible_httpapi_validate_certs: False              # specifies whether to validate SSL/TLS certificates when connecting to the target device specified in the playbook using the httpapi connection plugin. setting this to False allows Ansible to connect to devices with self-signed or untrusted certificates, but it can also pose a security risk if not used carefully
+    sw_core_2:  
+     ansible_host: "{{ switch }}"                       # this is a variable that can be used within the inventory file to specify the IP address of the target device to which Ansible will connect to execute tasks specified in the playbook. The value of this variable can be set in the playbook or passed as an extra variable when running the playbook, allowing for dynamic assignment of IP addresses based on the data provided in the variable.
+     ansible_user: admin
+     ansible_password: Aruba123!
+     ansible_connection: httpapi
+     ansible_network_os: arubanetworks.aoscx.aoscx
+     ansible_httpapi_use_ssl: True
+     ansible_acx_no_proxy: True
+     ansible_httpapi_validate_certs: False
+  west_wing:                                            # Group
+    ww_switches:                                        # nested Child/sub-group of west_wing
+     hosts: 
+      ww_core_2:                                        # nested Child/sub-group
+       ansible_host: "{{ switch }}"                     # this is a variable that can be used within the inventory file to specify the IP address of the target device to which Ansible will connect to execute tasks specified in the playbook. The value of this variable can be set in the playbook or passed as an extra variable when running the playbook, allowing for dynamic assignment of IP addresses based on the data provided in the variable.
+       ansible_user: admin    
+       ansible_password: Aruba123!    
+       ansible_connection: httpapi    
+       ansible_network_os: arubanetworks.aoscx.aoscx    
+       ansible_httpapi_use_ssl: True    
+       ansible_acx_no_proxy: True   
+       ansible_httpapi_validate_certs: False    
+      ww_core_3:                                        # nested Child/sub-group
+       ansible_host: "{{ switch }}"                     # this is a variable that can be used within the playbook to specify the IP address of the target device(s) specified in the play. This variable can be referenced in tasks and other parts of the playbook to ensure that the correct IP address is used when connecting to the target device(s).
+       ansible_user: admin
+       ansible_password: Aruba123!
+       ansible_connection: httpapi
+       ansible_network_os: arubanetworks.aoscx.aoscx
+       ansible_httpapi_use_ssl: True
+       ansible_acx_no_proxy: True
+       ansible_httpapi_validate_certs: False
