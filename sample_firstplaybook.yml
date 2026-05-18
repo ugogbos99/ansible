@@ -1,0 +1,33 @@
+---
+# This is a play
+- name: "install and show tree task"
+  gather_facts: no
+  hosts: ubuntu_servers
+  tasks:
+   #This is task 1
+   -
+    name: "install tree package"
+    pip:
+     name:
+      - tree
+     state: present
+   #This is task 1
+   -
+    name: "show tree task"
+    raw: pip show tree
+# This is a play
+- name: this is play2.
+  hosts: ubuntu_servers
+  gather_facts: no
+# This is a play
+- name: this is play3.
+  hosts: ubuntu_servers
+  gather_facts: no
+
+# ansible-galaxy collection install arubanetworks.aoscx:3.0.0
+# ansible -i devices.yml "all" -m ping
+# ansible -i devices.yml "all" -m ansible.builtin.ping
+# run the playbook using "ansible-playbook -i <inventory_name>.yml <playbook_name>.yml --ask-become-pass [-vvvv]"
+    # the more v's added, the more detailed output is shown. this is useful for debugging/tshooting
+    # ask-become-pass requests for the password for the target device(s) specified in the playbook to be entered
+# gather_facts are Ansible facts are data related to your remote systems, including operating systems, IP addresses, attached filesystems, and more. It is enabled by default
