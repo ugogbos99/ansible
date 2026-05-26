@@ -1,20 +1,22 @@
 ---   
 - name: execute show run command on the cx switches.          
   hosts: all
+  gather_facts: False
   roles: 
-   - role: arubanetworks.aoscx.aoscx_role
-  vars:                                           
-   ansible_host:
-     -switch: 10.202.217.11
-     -switch: 10.202.217.12
-     -switch: 10.202.216.12
-     -switch: 10.202.216.13
-     -switch: 10.202.216.14
-     loop: "{{ ansible_host }}"
-  gather_facts: False          
-  task:
+    - role: arubanetworks.aoscx_role
+  tasks:
     aoscx_command:
-      commands: ['show run'] 
+      commands: ['show running-config']
+  vars:                                           
+    ansible_host:
+      - switch: 10.202.217.11
+      - switch: 10.202.217.12
+      - switch: 10.202.216.12
+      - switch: 10.202.216.13
+      - switch: 10.202.216.14
+    loop: "{{ ansible_host }}"
+
+
          
     
 
