@@ -17,13 +17,13 @@
 #     raw: pip show tree                          # raw is a module that allows you to execute raw commands on the target hosts. In this case, it is being used to execute the command "pip show tree", which will display information about the "tree" package installed on the target hosts. This task is intended to verify that the "tree" package was successfully installed in the previous task.
 
 # This is the second play         
-- name: actions on the cx switches.          
-  hosts: all          
+- name: actions on the cx switches.               # name of the play, which is a human-readable description of what the play is intended to accomplish. This is optional but recommended for clarity and documentation purposes.
+  hosts: all                                      # this is a directive that specifies the target hosts or groups of hosts on which the tasks in the play will be executed. In this case, it is set to "all", which means that the tasks will be executed on all hosts defined in the inventory file. This allows for a broad execution of tasks across multiple hosts, which can be useful for managing and configuring a large number of devices in a network environment.
   gather_facts: no          
   #commands: hostname                             # this is a task that executes the "hostname" command on all target hosts specified in the play. This task is intended to display the hostname of each target host, which can be useful for verification and troubleshooting purposes.
   vars:                                           # variables that can be used within the playbook to store values that can be referenced in tasks and other parts of the playbook. In this case, it is used to define connection parameters for the target hosts specified in the play.
    ansible_connection: httpapi                    # connection plugin used by Ansible to connect to the target device specified in the playbook. httpapi is used for network devices that support REST APIs
-   ansible_network_os: arubanetworks.aoscx.aoscx
+   ansible_network_os: arubanetworks.aoscx.aoscx  # network operating system running on the target device specified in the playbook. this is used by Ansible to determine which modules and commands to use when executing tasks on the target device
    http_port: 80                                  # this is a variable that can be used within the playbook to specify the HTTP port to be used when connecting to the target device(s) specified in the play. This variable can be referenced in tasks and other parts of the playbook to ensure that the correct port is used for communication with the target device(s).
    vlans:                                         # this is a variable that can be used within the playbook to define a list of VLANs to be created and configured on the target device(s) specified in the play. Each VLAN is represented as a dictionary with an "id", "name", and "ports" key, which specify the VLAN ID, VLAN name, and list of ports to be assigned to the VLAN, respectively. This variable can be referenced in tasks and other parts of the playbook to create and configure the specified VLANs on the target device(s). 
     - id: 10
